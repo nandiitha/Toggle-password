@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Password Toggle</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="input-box">
+      <input type="password" placeholder="Password" id="password" />
+      <img src="eye-close.png" id="eyeicon" />
+      <p id="message">Password is <span id="strength"></span></p>
+      <!-- <button type="submit">Submit</button> -->
+    </div>
+    <script>
+      let eyeicon = document.getElementById("eyeicon");
+      let password = document.getElementById("password");
+      var msg = document.getElementById("message");
+      var str = document.getElementById("strength");
+
+      eyeicon.onclick = function () {
+        if (password.type === "password") {
+          password.type = "text";
+          eyeicon.src = "eye-open.png";
+        } else {
+          password.type = "password";
+          eyeicon.src = "eye-close.png";
+        }
+      };
+
+      //  added password strength indicator
+      password.addEventListener("input", () => {
+        if (password.value.length > 0) {
+          msg.style.display = "block";
+        } else {
+          msg.style.display = "none";
+        }
+        if (password.value.length < 4) {
+          str.innerHTML = "weak";
+          password.style.borderColor = "#ff5925";
+          msg.style.color = "#ff5925";
+        } else if (password.value.length >= 4 && password.value.length < 8) {
+          str.innerHTML = "medium";
+          password.style.borderColor = "#ffff00";
+          msg.style.color = "#ffff00";
+        } else if (password.value.length >= 8) {
+          str.innerHTML = "strong";
+          password.style.borderColor = "#26d730";
+          msg.style.color = "#26d730";
+        }
+      });
+    </script>
+  </body>
+</html>
